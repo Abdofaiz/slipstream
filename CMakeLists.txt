@@ -36,12 +36,21 @@ set(COMMON_SOURCES
         src/slipstream_inline_dots.c
         src/slipstream_sockloop.c
         src/slipstream_utils.c
+        src/slipstream_protocols.c
+        src/slipstream_udp_tunnel.c
+        src/slipstream_http_tunnel.c
+        src/slipstream_websocket_tunnel.c
+        src/slipstream_bypass.c
+        src/slipstream_proxy.c
+        examples/udp_network_example.c
         include/slipstream.h
         include/slipstream_inline_dots.h
         include/slipstream_server_cc.h
         include/slipstream_slot.h
         include/slipstream_sockloop.h
         include/slipstream_utils.h
+        include/slipstream_protocols.h
+        include/slipstream_bypass.h
 
         extern/lua-resty-base-encoding/b32_data.h
         extern/lua-resty-base-encoding/base32.c
@@ -66,6 +75,7 @@ add_executable(slipstream-client
 )
 target_link_libraries(slipstream-client PRIVATE m)
 target_link_libraries(slipstream-client PRIVATE picoquic-core)
+target_link_libraries(slipstream-client PRIVATE ssl crypto)
 if (BUILD_LOGLIB)
     target_link_libraries(slipstream-client PRIVATE picoquic-log)
 endif ()
@@ -82,6 +92,7 @@ add_executable(slipstream-server
 )
 target_link_libraries(slipstream-server PRIVATE m)
 target_link_libraries(slipstream-server PRIVATE picoquic-core)
+target_link_libraries(slipstream-server PRIVATE ssl crypto)
 if (BUILD_LOGLIB)
     target_link_libraries(slipstream-server PRIVATE picoquic-log)
 endif ()
